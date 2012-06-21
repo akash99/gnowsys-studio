@@ -78,8 +78,13 @@ DATABASES = {'default':
 STATIC_URL = '/static/'
 
 MEDIA_URL = '/static'
-MEDIA_ROOT = '/static'
+#MEDIA_ROOT = '/static'
+MEDIA_ROOT = os.path.join(os.path.dirname(__file__), '../gstudio/static')
+PYSCRIPT_URL_GSTUDIO = os.path.join(os.path.dirname(__file__), '../gstudio/createhtml.py')
+PYSCRIPT_URL_OBJECTAPP = os.path.join(os.path.dirname(__file__), '../objectapp/createhtml.py')
 
+
+GSTUDIO_UPLOAD_TO = 'img/'
 
 ADMIN_MEDIA_PREFIX = STATIC_URL + "grappelli/"
 
@@ -92,16 +97,25 @@ SITE_ID = 1
 
 LANGUAGE_CODE = 'en'
 
-GRAPPELLI_ADMIN_TITLE = '<a href="/">Gnowledge Studio</a>'
+GRAPPELLI_ADMIN_TITLE = '<a href="/nodetypes/" title="Gnowledge Studio">Gnowledge Studio</a>'
 
 GRAPPELLI_INDEX_DASHBOARD = "demo.dashboard.CustomIndexDashboard"
 
+GSTUDIO_RDF_FILEPATH = os.path.join(os.path.dirname(__file__), 'rdffiles.rdf')
 
 # Authentication related
 ACCOUNT_ACTIVATION_DAYS = 2
 EMAIL_HOST = 'localhost'
 DEFAULT_FROM_EMAIL = 'webmaster@localhost'
 LOGIN_REDIRECT_URL = '/'
+
+# fourstore related
+FOURSTORE_KBNAME = "demo"  # Name of 4store knowledge base
+FOURSTORE_PORT = 8067      # Port for 4store HTTP server
+SPARQL_ENDPOINT = "http://localhost:8067/sparql/"
+
+
+
 
 
 
@@ -171,6 +185,9 @@ INSTALLED_APPS = (
     'registration',
     'graphviz',
     'demo',
+    'fourstore',
+    'HTTP4Store',
+    'html5lib',
     # Uncomment the south entry to activate south for database migrations
     # Please do install south before uncommenting
     # command: sudo pip install south 

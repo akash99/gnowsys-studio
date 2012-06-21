@@ -78,7 +78,7 @@ from objectapp.sitemaps import GbobjectSitemap
 # import gstudio.regbackend
 from gstudio.forms import *
 from registration.views import register
-
+from views import home_view, more_view
 
 
 admin.autodiscover()
@@ -88,11 +88,14 @@ handler404 = 'django.views.defaults.page_not_found'
 urlpatterns = patterns(
     '',
     (r'^$', 'django.views.generic.simple.redirect_to',
-     {'url': '/nodetypes/'}),
+     {'url': '/home/'}),
+    url(r'^home/', home_view),
+    url(r'^more/',more_view),
     url(r'^nodetypes/', include('gstudio.urls')),
     url(r'^objects/', include('objectapp.urls')),
     url(r'^comments/', include('django.contrib.comments.urls')),
-    url(r'^xmlrpc/$', 'django_xmlrpc.views.handle_xmlrpc'),
+    #URL for XMLRPC
+    url(r'^xmlrpc/$','django_xmlrpc.views.handle_xmlrpc'),
     url(r'^i18n/', include('django.conf.urls.i18n')),
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
     url(r'^admin/gstudio/', include('gstudio.urls.ajaxurls')),
