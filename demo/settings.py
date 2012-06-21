@@ -66,7 +66,7 @@
 import os
 
 gettext = lambda s: s
-
+TIME_ZONE = 'Asia/Kolkata'
 DEBUG = True
 TEMPLATE_DEBUG78 = True
 
