@@ -1,0 +1,105 @@
+{% extends "gstudio/base.html" %}
+{% load i18n %}
+{% block content %}
+{% comment %}
+<address>
+<a href="mailto:akash@HBCSEdmin-Vostro3500">akash</a>
+</address>
+{% endcomment %}
+
+<!doctype html>
+<html>
+    <head>
+        <script type="text/javascript">
+$(function() {
+    $('#pandoravideo').pandoravideo({
+        'api': '//wetube.gnowledge.org/api/',
+        'pandora_base': 'wetube.gnowledge.org/'
+    });
+});
+        </script>
+    </head>
+    <body>
+        <div id="pandoravideo" data-pandora-id="P" data-pandora-layers="transcripts, descriptions, keywords, places">
+            
+        </div>
+    </body>
+
+</html>
+{% endblock %}
+
+
+
+{% comment %}
+        <script type="text/javascript">
+$(function() {
+    $('#pandoravideo').pandoravideo({
+        'api': '//wetube.gnowledge.org/api/',
+        'pandora_base': 'wetube.gnowledge.org/'
+    });
+});
+        </script>
+
+{% if user.is_authenticated  %}
+
+	<h1>Welcome to the Video studio</h1>
+	<h2>Logged in as: {{user.username}}</h2>
+	<h2 style = 'color:red;'>Video</h2>
+<form name="myform" action="" method="POST">
+{% csrf_token %}
+<div align="center">
+<select name="mydropdown">
+<option value="title">Title</option>
+<option value="creation_date">Creation Date</option>
+</select>
+</div>
+<input type="submit" value="Sort By">
+</form>
+	
+		
+	<div style="height:1000px;width:500px;overflow:scroll;">
+	{% for each in video %}
+
+		<h2 style = 'color:green;'>{{each.title}}</h2>
+	   	<font color = 'blue'>video id = {{each.id}}</font><br>
+		Posted by:{% for author in each.get_nbh.posted_by %}
+				  {{author}}
+			  {% endfor %}</br>
+		Posted on:{% for date in each.get_nbh.creation_day %}
+				  {{date}}
+			  {% endfor %}<br>
+		<p>Contents: {{each.content}}</p>
+		{% for we in each.get_nbh.source_description %}		
+		Location: {{we}}<br>
+			{% for map in each.get_nbh.map_link %}
+				{% ifnotequal map '' %}		
+					GMap: <a href=http://maps.google.co.in/maps?hl=en&cp=43&gs_id=6&xhr=t&q={{map}}&bav=on.2,or.r_gc.r_pw.r_qf.,cf.osb&biw=1304&bih=680&um=1&ie=UTF-8&sa=N&tab=wl target="_blank">View {{we}} on GoogleMap</a><br>
+				{% endifnotequal %}			
+			{% endfor %}
+		{% endfor %}
+
+		<a href={{each.rurl}} target="_blank">Right Click to Download</a>
+		<br>	
+
+		<div id="pandoravideo" data-pandora-id="P" data-pandora-layers="transcripts, descriptions, keywords, places">
+            	</div>
+
+
+		<a href={{each.rurl}} target="_blank">Full Screen</a>
+		<br>	
+		{% for wem in each.get_nbh.time_limit %} 
+			<iframe width="350px" height="200px" src="{{each.rurl}}/embed?in=0&out={{wem}}&view=video" frameborder="0" allowfullscreen="true">
+			</iframe>
+		{% endfor %}
+	<br>
+	<br>
+	<br>
+	<br>
+	{% endfor %}
+		</div>
+
+	
+
+{% endif %}
+{% endblock %}
+{% endcomment %}

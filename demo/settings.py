@@ -84,7 +84,7 @@ PYSCRIPT_URL_GSTUDIO = os.path.join(os.path.dirname(__file__), '../gstudio/creat
 PYSCRIPT_URL_OBJECTAPP = os.path.join(os.path.dirname(__file__), '../objectapp/createhtml.py')
 
 
-GSTUDIO_UPLOAD_TO = 'img/'
+GSTUDIO_UPLOAD_TO = 'uploads/'
 
 ADMIN_MEDIA_PREFIX = STATIC_URL + "grappelli/"
 
